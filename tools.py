@@ -1,3 +1,5 @@
+import re
+
 def block(route):
     resource_type=route.request.resource_type
     if resource_type in ['image','font','media']:
@@ -11,4 +13,5 @@ def cleanup(spec:str):
         return None
     for word in words:
         spec=spec.replace(word,'')
+    spec=re.sub(r'[^A-Za-z0-9- ]','',spec)
     return ' '.join(spec.split())
