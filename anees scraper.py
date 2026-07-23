@@ -2,7 +2,7 @@ from playwright.sync_api import sync_playwright
 import pandas as pd
 import streamlit as st
 import re
-from tools import cleanup, block
+from tools import cleanup, block, price_format
 
 st.set_page_config(layout='wide')
 laptops=[]
@@ -29,7 +29,7 @@ with sync_playwright() as p:
             info=specs.inner_text().split('/')
         laptop={
             'name':cleanup(info[0]),
-            'price':price.inner_text(),
+            'price':price_format(price.inner_text()),
             'cpu':cleanup(next((l for l in info if 'AMD' in l or 'Intel' in l),None)),
             'gpu':cleanup(next((l for l in info if 'RTX' in l),None)),
             'ram':cleanup(next((l for l in info if 'RAM' in l or 'DDR5' in l),None)),

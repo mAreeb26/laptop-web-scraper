@@ -48,7 +48,7 @@ def block(route):
     route.continue_()
 
 def cleanup(spec:str):
-    words=['Gaming','Laptop','Notebook','GPU','RAM','Nvidia','SSD','Processor','Storage','GeForce','DDR5','NVIDIA','GDDR6','GDDR7','Graphics','GeForce','PCIe','NVMe','M.2','Gen 4','Gen','4.0']
+    words=['Gaming','Laptop','Notebook','GPU','RAM','Nvidia','SSD','Processor','Storage','GeForce','DDR5','NVIDIA','GDDR6','GDDR7','Graphics','GeForce','PCIe','NVMe','M.2','Gen 4','Gen','4.0','4x4']
     if spec==None:
         return None
     for word in words:
@@ -56,3 +56,11 @@ def cleanup(spec:str):
     spec=re.sub(r'[^A-Za-z0-9- ]','',spec)
     spec=re.sub(r'\d{1,2}th Gen','',spec)
     return ' '.join(spec.split())
+
+def price_format(price:str):
+    fprice=price.replace('QAR','')
+    fprice=fprice.replace('QR','')
+    fprice=fprice.replace(',','')
+    fprice=fprice.replace('\n','')   
+    fprice=float(fprice.strip())
+    return (f'QR {fprice:,.0f}')

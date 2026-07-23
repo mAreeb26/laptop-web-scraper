@@ -36,7 +36,6 @@ with sync_playwright() as p:
     for linkk in links:
         page.goto(linkk,wait_until=('domcontentloaded'))
         if "CF_500_CLASS" in page.content():
-            print("Cloudflare blocked.")
             retry.append(linkk)
             continue
 
@@ -47,7 +46,7 @@ with sync_playwright() as p:
         if pprice.count()>0:
             pprice=pprice.inner_text()
         else:
-            pprice=None
+            pprice='  -'
 
         page.wait_for_selector('div.card.card--shadow.card--specifications')
         specs=page.locator('div.card.card--shadow.card--specifications')
