@@ -1,4 +1,4 @@
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright , TimeoutError as TE
 from tools import cleanup, block
 
 laptops=[]
@@ -32,7 +32,12 @@ def scrape_jarir():
             links.append(link)
 
         for linkk in links:
-            page.goto(linkk,wait_until=('domcontentloaded'))
+            try:
+                page.goto(linkk,wait_until=('domcontentloaded'))
+            except TE:
+                retry.append(linkk)
+                continue
+
             if "CF_500_CLASS" in page.content():
                 retry.append(linkk)
                 continue
@@ -47,7 +52,11 @@ def scrape_jarir():
                 pprice='  -'
 
             page.wait_for_selector('div.card.card--shadow.card--specifications')
-            specs=page.locator('div.card.card--shadow.card--specifications')
+            try:
+                specs=page.locator('div.card.card--shadow.card--specifications')
+            except TE:
+                retry.append(linkk)
+                continue
             specs.locator('a.link.link--icon.card__show.card__show--more').click()
             table=specs.locator('tr.table__row')
             got={}

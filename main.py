@@ -16,16 +16,16 @@ if st.button('run scrapers'):
         l_df= pd.DataFrame(l_laptops)
         l_df=l_df[['name','price','p_price','cpu','gpu','ram','ssd','model','link']]
         st.title('Lulu')
-        st.dataframe(l_df,hide_index=True,width='content')
+        st.dataframe(l_df,hide_index=True,width='stretch',column_config={'link':st.column_config.LinkColumn('link',display_text='Product Link')})
     if anees:
         a_laptops=scrape_anees()
         a_df = pd.DataFrame(a_laptops)
         a_df=a_df[['name','price','cpu','gpu','ram','ssd','model','link']]
         st.title('Al Anees')
-        st.dataframe(a_df,hide_index=True,width='content')
+        st.dataframe(a_df,hide_index=True,width='stretch',column_config={'link':st.column_config.LinkColumn('link',display_text='Product Link')})
     if jarir:
         j_laptops=scrape_jarir()
         j_df = pd.DataFrame(j_laptops)
         j_df=j_df[['name','price','p_price','cpu','gpu','ram','ssd','model','link']]
         st.title('Jarir')
-        st.dataframe(j_df,hide_index=True,width='content')
+        st.dataframe(j_df,hide_index=True,width='stretch',column_config={'link':st.column_config.LinkColumn('link',display_text='Product Link')})

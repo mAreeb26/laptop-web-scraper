@@ -54,7 +54,7 @@ def cleanup(spec:str):
     for word in words:
         spec=spec.replace(word,'')
     spec=re.sub(r'[^A-Za-z0-9- ]','',spec)
-    spec=re.sub(r'\d{1,2}th Gen','',spec)
+    spec=re.sub(r'\d{1,2}th','',spec)
     return ' '.join(spec.split())
 
 def price_format(price:str):
