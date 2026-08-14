@@ -15,8 +15,12 @@ def scrape_jarir():
         page.set_default_timeout(90000)
         page.set_default_navigation_timeout(60000)
         page.goto('https://www.jarir.com/qa-en/gaming-pc-laptop-cpu.html?productcode_description=Laptops&is_stock_available=1',wait_until='domcontentloaded')
+        page.wait_for_selector('div.modal.modal--country-selector')
         page.wait_for_selector('a.product-tile__link')
         products=page.locator('a.product-tile__link')
+
+        country_selec=page.locator('div.modal.modal--country-selector')
+        page.get_by_role('button',name='Qatar English').click()
 
         while True:
             o_count=products.count()
@@ -79,5 +83,8 @@ def scrape_jarir():
                 'model':got['Manufacturer Number'],
                 'link':linkk
             }
+            laptops.append(laptop)
+        for chance2 in retry:
+            laptop={'link':chance2}
             laptops.append(laptop)
         return laptops
